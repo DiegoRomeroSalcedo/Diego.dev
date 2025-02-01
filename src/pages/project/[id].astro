@@ -1,0 +1,97 @@
+---
+import "../../styles/global.css";
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+// Importacion de imagenes
+import PortadaGuaca from "../../../public/portada_laguaca.png";
+import GitHub from "../../assets/github-dark.svg";
+import YouTube from "../../assets/youtube.svg";
+
+export async function getStaticPaths() {
+    const projects = await getCollection('projects');
+
+    return projects.map((project) => ({
+        params: { id: project.slug},
+        props: { project }
+    }));
+}
+
+const { project } = Astro.props;
+const { data, slug } = project;
+const { title, imgSrc, introduction, alt, githubUrl, youtubeUrl, skills, sale } = data;
+
+const { Content } = await render(project);
+
+export const prerender = true
+---
+
+<Layout title={title}>
+    <section class="min-h-screen grid place-content-center">
+        <section class="grid grid-cols-2 items-start max-w-screen-lg gap-4 p-3">
+            <section class="flex flex-col">
+                <aside>
+                    <Image
+                        transition:name={`image-${slug}`}
+                        src={PortadaGuaca} 
+                        alt={alt}  
+                        class="w-full rounded-lg"
+                        loading="eager"
+                    />
+                </aside>
+                <section class="flex flex-col gap-5 mt-4 border-1 border-solid border-gray-800 rounded-lg p-3">
+                    <section class="flex flex-row justify-between items-center gap-4">
+                        <section class="flex flex-row justify-start items-start gap-1">
+                            {
+                                skills.map(skill => (
+                                    <div class="text-white opacity-70 text-xs border-1 border-gray-800 bg-gray-800 py-1 px-2 text-center rounded-md hover:cursor-default">{ skill }</div>
+                                ))
+                            }
+                        </section>
+                        <section class="flex flex-row justify-center items-center gap-2">
+                            {
+                                youtubeUrl && youtubeUrl !== '' && (
+                                    <figure>
+                                        <a href={youtubeUrl} class="group" target="_blank">
+                                            <Image src={YouTube} alt="logo youtube" class="w-5 transition group-hover:scale-110 duration-300" loading="eager"/>
+                                        </a>
+                                    </figure>
+                                )
+                            }
+                            <figure>
+                                <a href={githubUrl} class="group" target="_blank">
+                                    <Image src={GitHub} alt="logo github" class="w-4 transition group-hover:scale-110 duration-300" loading="eager"/>
+                                </a>
+                            </figure>
+                        </section>
+                    </section>
+                    <section>
+                        {
+                            sale === true ?  
+                                (
+                                    <div class="text-black font-semibold opacity-70 text-sm border-1 border-gray-800 bg-green-400 py-1 px-2 max-w-20 text-center rounded-md hover:cursor-default">Vendido</div>
+                                )
+                            : 
+                            'On sale'
+                        }
+                    </section>
+                </section>
+            </section>
+            <main class="border-1 border-solid border-gray-800 rounded-lg p-3 min-h-full text-white">
+                <h1 class="text-4xl">{title}</h1>
+                <Content />
+            </main>
+        </section>
+    </section>
+</Layout>
+
+<style>
+    .border-1 {
+        border-width: 1px;
+    }
+
+    .w-100 {
+        width: 460px;
+    }
+</style>

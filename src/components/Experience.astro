@@ -1,0 +1,52 @@
+---
+interface Experience {
+    company: string;
+    date: string;
+    description: string;
+}
+
+const experience: Experience[] = [
+    {
+        company: "Freelancer and Self-taught Student",
+        date: "Oct 24 - Present",
+        description: "Independent Software Developer, continually expanding my skills with technologies like Docker.",
+    },
+    {
+        company: "La Guaca",
+        date: "Ago - 24 / Sep - 24",
+        description: "Full Stack Software Developer, created a web application for inventory and sales management at La Guaca.",
+    },
+    {
+        company: "Grupo OET",
+        date: "Nov - 23 / Jun - 24",
+        description: "Development of formats, support for the transmission module to the Colombian RNDC through SOAP protocols, customer support, and assistance with modules such as Billing, Settlement, Manifests, among others.",
+    },
+];
+---
+
+<section class="relative mt-20">
+    <h1 class="text-xl text-white mb-6">Experience</h1>
+    <div class="absolute left-1 top-20 w-1 h-72 bg-gray-800 rounded-full z-10 hidden md:block">
+        <span
+            class="absolute top-4 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-800 rounded-full"
+        ></span>
+        <span
+            class="absolute top-30 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-800 rounded-full"
+        ></span>
+        <span
+            class="absolute bottom-16 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-800 rounded-full"
+        ></span>
+    </div>
+    <section class="mt-6 flex flex-col gap-4 md:ml-9 max-w-experience">
+        {
+            experience.map((exp) => (
+                <section class="flex flex-col gap-1">
+                    <h2 class="text-lg text-white opacity-90">{exp.company}</h2>
+                    <p class="text-white opacity-85">{exp.date}</p>
+                    <p class="text-white opacity-85">{exp.description}</p>
+                </section>
+            ))
+        }
+    </section>
+    <div id="skills"></div>
+</section>

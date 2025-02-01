@@ -1,0 +1,60 @@
+---
+import { Image } from "astro:assets";
+import TypeScript from "../assets/typeScript.svg";
+import JavaScript from "../assets/javascript.svg";
+import Php from "../assets/php_dark.svg";
+import Express from "../assets/expressjs_dark.svg";
+import React from "../assets/react.svg";
+import AstroImage from "../assets/astro_dark.svg";
+import Html from "../assets/html.svg";
+import Css from "../assets/css.svg";
+import MySql from "../assets/mysql.svg";
+import Mongo from "../assets/mongodb.svg";
+import Tailwind from "../assets/tailwindcss.svg";
+import Playwright from "../assets/playwright.svg";
+
+interface Skills {
+    name: string;
+    imgsrc: string;
+    alt: string;
+}
+
+const skills: Skills[] = [
+    { name: 'TypeScript', imgsrc: TypeScript, alt: 'typescript icon'},
+    { name: 'JavaScript', imgsrc: JavaScript, alt: 'javascript icon'},
+    { name: 'Php', imgsrc: Php, alt: 'php icon'},
+    { name: 'Express.js', imgsrc: Express, alt: 'express icon'},
+    { name: 'React.js', imgsrc: React, alt: 'react icon'},
+    { name: 'Astro', imgsrc: AstroImage, alt: 'astro icon', },
+    { name: 'HTML', imgsrc: Html, alt: 'html icon'},
+    { name: 'CSS', imgsrc: Css, alt: 'css icon'},
+    { name: 'MySQL', imgsrc: MySql, alt: 'mysql icon'},
+    { name: 'MongoDB', imgsrc: Mongo,  alt: 'mongodb icon'},
+    { name: 'Tailwind CSS', imgsrc: Tailwind, alt: 'tailwind icon'},
+    { name: 'Playwright', imgsrc: Playwright, alt: 'playwright icon'},
+]
+---
+
+<section class="mt-20">
+    <h2 class="text-xl text-white mb-6">
+        Skills
+    </h2>
+    <section class="mt-6 grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] p-4 gap-4">
+        {
+            skills.map(skill => (
+                <section class="border-1 border-gray-800 flex flex-col justify-center items-center p-2 rounded-lg">
+                    <Image src={skill.imgsrc} alt={skill.alt} class="h-11 w-11 object-contain pt-1" loading="lazy"/> 
+                    <h3 class="text-white">
+                        { skill.name }
+                    </h3>
+                </section>
+            ))
+        }
+    </section>
+</section>
+
+<style>
+    .border-1 {
+        border-width: 1px;
+    }
+</style>

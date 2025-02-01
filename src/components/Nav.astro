@@ -1,0 +1,50 @@
+---
+interface Navigation {
+    name: string;
+    ref?: string;
+}
+
+const navigation: Navigation[] = [
+    { name: "Home", ref: "#home" },
+    { name: "Projects", ref: "#projects" },
+    { name: "Experience", ref: "#experience" },
+    { name: "Skills", ref: "#skills" },
+    { name: "About me", ref: "#aboutme" },
+    { name: "Contact", ref: "#contact" },
+];
+---
+
+<nav class="navbar sticky top-4 z-30 w-full max-w-4xl m-auto mb-8 flex justify-center md:justify-between items-center p-4 rounded-lg text-gray-300">
+    <a class="text-center" href="/"><span>Diego.dev</span></a>
+    <div class="hidden md:block">
+        <ul class="flex flex-row justify-center items-center gap-1">
+            {
+                navigation.map((nav) => (
+                    <li class="text-center">
+                        <a
+                            class="text-md p-1 hover:underline"
+                            href={nav.ref}
+                        >
+                            {nav.name}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</nav>
+
+<style>
+    .navbar {
+        animation: scrolleffect linear forwards;
+        animation-timeline: scroll(root block);
+        animation-range: 0 150px;
+    }
+
+    @keyframes scrolleffect {
+        to {
+            backdrop-filter: blur(3px);
+            border: 1px solid #ffffff33;
+        }
+    }
+</style>

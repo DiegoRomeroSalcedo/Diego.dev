@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import PortadaGuaca from '../../public/portada_laguaca.png';
+import GitHub from "../assets/github-dark.svg";
+
+const projects = await getCollection('projects');
+---
+
+<section class="mt-20">
+    <h1 class="text-xl mb-6 text-white">Projects</h1>
+    <section class="grid grid-cols-[repeat(auto-fill,minmax(250x,1fr))] md:grid-cols-2 gap-4">
+        {
+            projects.map((project: {slug: string; data: any;}) => {
+                const { slug, data } = project;
+                const { title, imgSrc, introduction, alt, githubUrl, skills } = data;
+
+                return (
+                    <section class="flex flex-col justify-start items-start gap-3 border-solid border-1 rounded-lg border-gray-800 p-3">
+                        <section class="flex-1 flex flex-col justify-center md:flex-row md:justify-between items-start w-full gap-4">
+                            <section class="flex flex-col md:flex-row justify-center items-start gap-1">
+                                <figure>
+                                        <Image
+                                            transition:name={`image-${slug}`} 
+                                            src={PortadaGuaca} 
+                                            alt={alt} class="w-full md:w-28 rounded-sm" 
+                                            loading="eager"
+                                        />
+                                </figure>
+                                <section class="group">
+                                    <a class="flex flex-row justify-start items-center gap-1" href={`/project/${slug}`}>
+                                        <h2 class="text-lg text-white opacity-90 hover:underline">{title}</h2>
+                                        <div class="max-w-2 w-2 h-2 transition group-hover:scale-110">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+                                        </div>
+                                    </a>
+                                    <p class="text-white opacity-85 max-w-2xl">{introduction}</p>
+                                </section>
+                            </section>
+                            <section>
+                                <figure>
+                                    <a href={githubUrl} class="group" target="_blank">
+                                        <Image src={GitHub} alt="logo github" class="w-4 transition group-hover:scale-110 duration-300" loading="eager"/>
+                                    </a>
+                                </figure>
+                            </section>
+                        </section>
+                        <section class="hidden md:block">
+                            <div class="flex flex-row justify-center items-center gap-1">
+                                {
+                                    skills.map((skill: string) => (
+                                        <section class="text-white opacity-70 text-xs border-1 border-gray-800 bg-gray-800 py-1 px-2 text-center rounded-md hover:cursor-default">{skill}</section>
+                                    ))
+                                }   
+                            </div>
+                        </section>
+                    </section>
+                )
+            })
+        }
+    </section>
+    <div id="experience"></div>
+</section>
