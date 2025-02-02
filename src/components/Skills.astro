@@ -12,6 +12,7 @@ import MySql from "../assets/mysql.svg";
 import Mongo from "../assets/mongodb.svg";
 import Tailwind from "../assets/tailwindcss.svg";
 import Playwright from "../assets/playwright.svg";
+import GithubActions from "../assets/github_actions.svg";
 
 interface Skills {
     name: string;
@@ -32,6 +33,7 @@ const skills: Skills[] = [
     { name: 'MongoDB', imgsrc: Mongo,  alt: 'mongodb icon'},
     { name: 'Tailwind CSS', imgsrc: Tailwind, alt: 'tailwind icon'},
     { name: 'Playwright', imgsrc: Playwright, alt: 'playwright icon'},
+    { name: 'GitHub Actions', imgsrc: GithubActions, alt: 'github actions icon'},
 ]
 ---
 
@@ -39,7 +41,7 @@ const skills: Skills[] = [
     <h2 class="text-xl text-white mb-6">
         Skills
     </h2>
-    <section class="mt-6 grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] p-4 gap-4">
+    <section class="mt-6 grid grid-cols-[repeat(auto-fill,minmax(130px,1fr))] p-4 gap-4">
         {
             skills.map(skill => (
                 <section class="border-1 border-gray-800 flex flex-col justify-center items-center p-2 rounded-lg">

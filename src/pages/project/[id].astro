@@ -41,8 +41,8 @@ export const prerender = true
                     />
                 </aside>
                 <section class="flex flex-col gap-5 mt-4 border-1 border-solid border-gray-800 rounded-lg p-3">
-                    <section class="flex flex-row justify-between items-center gap-4">
-                        <section class="flex flex-row justify-start items-start gap-1">
+                    <section class="flex flex-col items-start sm:flex-row justify-between sm:items-center gap-4">
+                        <section class="flex flex-row justify-start items-start gap-1 flex-wrap">
                             {
                                 skills.map(skill => (
                                     <div class="text-white opacity-70 text-xs border-1 border-gray-800 bg-gray-800 py-1 px-2 text-center rounded-md hover:cursor-default">{ skill }</div>
