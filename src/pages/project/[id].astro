@@ -10,21 +10,30 @@ import GitHub from "../../assets/github-dark.svg";
 import YouTube from "../../assets/youtube.svg";
 
 export async function getStaticPaths() {
-    const projects = await getCollection('projects');
+    const projects = await getCollection("projects");
 
     return projects.map((project) => ({
-        params: { id: project.slug},
-        props: { project }
+        params: { id: project.slug },
+        props: { project },
     }));
 }
 
 const { project } = Astro.props;
 const { data, slug } = project;
-const { title, imgSrc, introduction, alt, githubUrl, youtubeUrl, skills, sale } = data;
+const {
+    title,
+    imgSrc,
+    introduction,
+    alt,
+    githubUrl,
+    youtubeUrl,
+    skills,
+    sale,
+} = data;
 
 const { Content } = await render(project);
 
-export const prerender = true
+export const prerender = true;
 ---
 
 <Layout title={title}>
@@ -34,51 +43,84 @@ export const prerender = true
                 <aside>
                     <Image
                         transition:name={`image-${slug}`}
-                        src={PortadaGuaca} 
-                        alt={alt}  
+                        src={PortadaGuaca}
+                        alt={alt}
                         class="w-full rounded-lg"
                         loading="eager"
                     />
                 </aside>
-                <section class="flex flex-col gap-5 mt-4 border-1 border-solid border-gray-800 rounded-lg p-3">
-                    <section class="flex flex-col items-start sm:flex-row justify-between sm:items-center gap-4">
-                        <section class="flex flex-row justify-start items-start gap-1 flex-wrap">
+                <section
+                    class="flex flex-col gap-5 mt-4 border-1 border-solid border-gray-800 rounded-lg p-3"
+                >
+                    <section
+                        class="flex flex-col items-start sm:flex-row justify-between sm:items-center gap-4"
+                    >
+                        <section
+                            class="flex flex-row justify-start items-start gap-1 flex-wrap"
+                        >
                             {
-                                skills.map(skill => (
-                                    <div class="text-white opacity-70 text-xs border-1 border-gray-800 bg-gray-800 py-1 px-2 text-center rounded-md hover:cursor-default">{ skill }</div>
+                                skills.map((skill) => (
+                                    <div class="text-white opacity-70 text-xs border-1 border-gray-800 bg-gray-800 py-1 px-2 text-center rounded-md hover:cursor-default">
+                                        {skill}
+                                    </div>
                                 ))
                             }
                         </section>
-                        <section class="flex flex-row justify-center items-center gap-2">
+                        <section
+                            class="flex flex-row justify-center items-center gap-2"
+                        >
                             {
-                                youtubeUrl && youtubeUrl !== '' && (
+                                youtubeUrl && youtubeUrl !== "" && (
                                     <figure>
-                                        <a href={youtubeUrl} class="group" target="_blank">
-                                            <Image src={YouTube} alt="logo youtube" class="w-5 transition group-hover:scale-110 duration-300" loading="eager"/>
+                                        <a
+                                            href={youtubeUrl}
+                                            class="group"
+                                            target="_blank"
+                                        >
+                                            <Image
+                                                src={YouTube}
+                                                alt="logo youtube"
+                                                class="w-5 transition group-hover:scale-110 duration-300"
+                                                loading="eager"
+                                            />
                                         </a>
                                     </figure>
                                 )
                             }
                             <figure>
-                                <a href={githubUrl} class="group" target="_blank">
-                                    <Image src={GitHub} alt="logo github" class="w-4 transition group-hover:scale-110 duration-300" loading="eager"/>
+                                <a
+                                    href={githubUrl}
+                                    class="group"
+                                    target="_blank"
+                                >
+                                    <Image
+                                        src={GitHub}
+                                        alt="logo github"
+                                        class="w-4 transition group-hover:scale-110 duration-300"
+                                        loading="eager"
+                                    />
                                 </a>
                             </figure>
                         </section>
                     </section>
                     <section>
                         {
-                            sale === true ?  
-                                (
-                                    <div class="text-black font-semibold opacity-70 text-sm border-1 border-gray-800 bg-green-400 py-1 px-2 max-w-20 text-center rounded-md hover:cursor-default">Vendido</div>
-                                )
-                            : 
-                            'On sale'
+                            sale === true ? (
+                                <div class="text-black font-semibold opacity-70 text-sm border-1 border-gray-800 bg-green-400 py-1 px-2 max-w-20 text-center rounded-md hover:cursor-default">
+                                    Sold
+                                </div>
+                            ) : (
+                                <div class="text-black font-semibold opacity-70 text-sm border-1 border-gray-800 bg-red-400 py-1 px-2 max-w-20 text-center rounded-md hover:cursor-default">
+                                    On Sale
+                                </div>
+                            )
                         }
                     </section>
                 </section>
             </section>
-            <main class="border-1 border-solid border-gray-800 rounded-lg p-3 min-h-full text-white">
+            <main
+                class="border-1 border-solid border-gray-800 rounded-lg p-3 min-h-full text-white"
+            >
                 <h1 class="text-4xl">{title}</h1>
                 <Content />
             </main>
